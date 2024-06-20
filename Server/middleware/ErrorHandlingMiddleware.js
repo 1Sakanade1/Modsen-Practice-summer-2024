@@ -1,0 +1,11 @@
+const ApiError = require('../error/ApiError');
+
+//вставляется после всех middleware для проверки ошибок, сгенерированных через ApiError
+
+module.exports = function (err, req, res, next) {
+  if (err instanceof ApiError) {
+    return res.status(err.status).json({ message: err.message });
+  }
+
+  return res.status(500).json({ message: 'непредвиденная ошибка' });
+};
