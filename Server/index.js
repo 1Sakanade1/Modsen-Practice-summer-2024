@@ -14,8 +14,8 @@ app.use('/api', router);
 app.use(errorHandler);
 
 const options = {
-  key: fs.readFileSync('D:/code/3k2s/delivery_course_proj/ca.key'),
-  cert: fs.readFileSync('D:/code/3k2s/delivery_course_proj/ca.crt'),
+  key: fs.readFileSync('C:/Modsen-Practice-summer-2024/Server/ca.key'),
+  cert: fs.readFileSync('C:/Modsen-Practice-summer-2024/Server/ca.crt'),
 };
 
 const start = async () => {
