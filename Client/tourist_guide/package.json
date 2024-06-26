@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@googlemaps/markerclusterer": "^2.5.3",
     "@vis.gl/react-google-maps": "^1.1.0",
     "antd": "^5.18.3",
     "react": "^18.3.1",
@@ -27,6 +28,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "node-sass": "^9.0.0",
     "sass": "^1.77.6",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"

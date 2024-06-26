@@ -1,6 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import trees from '../temp/trees'
+import attractions from '../temp/attractions'
+import Markers from "./Markers";
+
+
+const points = [ ...attractions];
 
 import {
   APIProvider,
@@ -16,7 +22,9 @@ const MapComp = () => {
   return (
     <APIProvider apiKey={'AIzaSyDKi_KEnRUy_O-l9k7A0qiMJAN4FfAv20c'}>
       <div style={{height:"100vh",width:"100%"}}>
-      <Map zoom={9} center={position} mapId={"9b6753c411e8d3cc"}></Map>
+      <Map defaultZoom={9} defaultCenter={{ lat: 43.64, lng: -79.41 }} mapId={"9b6753c411e8d3cc"}>
+      <Markers points={points} />
+      </Map>
       </div>
     </APIProvider>
   );
