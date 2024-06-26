@@ -1,0 +1,1 @@
+web: cd Client/tourist_guide && npm run dev
