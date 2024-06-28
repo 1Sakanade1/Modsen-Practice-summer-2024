@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../store/store';
 import { RootState } from '../store/store';
@@ -9,7 +9,14 @@ type PositionOptionsWithFrequency = Omit<PositionOptions, 'frequency'> & {
 
 const UserGeolocation: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const userLocation = useSelector((state: RootState) => state.userLocation);
+  const state = useSelector((state: RootState) => state.location);
+
+  const userLocation = useMemo(() => {
+    if (state && state.userLocation) {
+      return state.userLocation;
+    }
+    return { latitude: 0, longitude: 0 };
+  }, [state?.userLocation]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -41,9 +48,7 @@ const UserGeolocation: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userLocation) {
-      console.log(`User location: ${userLocation.latitude}, ${userLocation.longitude}`);
-    }
+    console.log(`User location from redux: ${userLocation.latitude},${userLocation.longitude}`);
   }, [userLocation]);
 
   return null;

@@ -6,7 +6,7 @@ import Markers from "./Markers";
 
 
 
-const points: any[] = attractions.map(attraction => ({
+const points: any[] = attractions.map(attraction => ({   // const points: Attraction[] должен быть   но вылазит ошибка когда так делаю
   ...attraction,
   key: attraction.id.toString(),
 }));

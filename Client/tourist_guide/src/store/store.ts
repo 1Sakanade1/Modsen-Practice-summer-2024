@@ -1,4 +1,4 @@
-import { createStore, AnyAction } from 'redux';
+import { createStore, combineReducers, AnyAction } from 'redux';
 
 interface FavoritePoint {
   id: string;
@@ -12,13 +12,19 @@ interface UserLocation {
   longitude: number;
 }
 
-export interface RootState {
+interface FavoriteState {
   favorites: FavoritePoint[];
+}
+
+interface LocationState {
   userLocation: UserLocation;
 }
 
-const initialState: RootState = {
+const initialFavoriteState: FavoriteState = {
   favorites: [],
+};
+
+const initialLocationState: LocationState = {
   userLocation: {
     latitude: 0,
     longitude: 0,
@@ -45,9 +51,14 @@ interface SetUserLocationAction extends AnyAction {
   payload: UserLocation;
 }
 
-type FavoriteActions = AddToFavoritesAction | DeleteFromFavoritesAction | GetFavoritesAction | SetUserLocationAction;
+interface GetUserLocationAction extends AnyAction {
+  type: 'GET_USER_LOCATION';
+}
 
-function favoriteReducer(state: RootState = initialState, action: FavoriteActions): RootState {
+type FavoriteActions = AddToFavoritesAction | DeleteFromFavoritesAction | GetFavoritesAction;
+type LocationActions = SetUserLocationAction | GetUserLocationAction;
+
+function favoriteReducer(state: FavoriteState = initialFavoriteState, action: FavoriteActions): FavoriteState {
   switch (action.type) {
     case 'ADD_TO_FAVORITES':
       return { ...state, favorites: [...state.favorites, action.payload] };
@@ -55,14 +66,29 @@ function favoriteReducer(state: RootState = initialState, action: FavoriteAction
       return { ...state, favorites: state.favorites.filter(point => point.id !== action.payload) };
     case 'GET_FAVORITES':
       return { ...state, favorites: action.payload };
-    case 'SET_USER_LOCATION':
-      return { ...state, userLocation: action.payload };
     default:
       return state;
   }
 }
 
-const store = createStore(favoriteReducer);
+function locationReducer(state: LocationState = initialLocationState, action: LocationActions): LocationState {
+  switch (action.type) {
+    case 'SET_USER_LOCATION':
+      return { ...state, userLocation: action.payload };
+    case 'GET_USER_LOCATION':
+      return state;
+    default:
+      return state;
+  }
+}
 
+const rootReducer = combineReducers({
+  favorite: favoriteReducer,
+  location: locationReducer,
+});
+
+const store = createStore(rootReducer);
+
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export default store;
