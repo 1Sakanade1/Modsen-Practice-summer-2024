@@ -1,12 +1,12 @@
 "use client";
 
-import { Attraction } from "../temp/attractions"; 
+//import { Attraction } from "../temp/attractions"; 
 import attractions from '../temp/attractions';
 import Markers from "./Markers";
 
 
 
-const points: Attraction[] = attractions.map(attraction => ({
+const points: any[] = attractions.map(attraction => ({
   ...attraction,
   key: attraction.id.toString(),
 }));
