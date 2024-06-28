@@ -1,13 +1,49 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useMap } from '@vis.gl/react-google-maps';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import { AdvancedMarker } from '@vis.gl/react-google-maps';
 import type { Marker } from "@googlemaps/markerclusterer";
 import { Button, Modal } from 'antd';
-import Nature from '../static/nature.png';
+
+import * as images from '../static/imageImport';
+
+
+
+type Attraction = {
+  id: number;
+  name: string;
+  category: string;
+  lat: number;
+  lng: number;
+  address: string;
+  description: string;
+  photos: string[] | null;
+  key: string;
+};
 
 type Props = {
-  points: { key: string; lat: number; lng: number; title: string; description: string }[];
+  points: Attraction[];
+};
+
+const iconMap: { [key: string]: string} = {
+  "nature": images.Nature,
+  "culture": images.Culture,
+  "adult": images.Adult,
+  "amusement": images.Amusement,
+  "architecture": images.Architecture,
+  "auto": images.Auto,
+  "bank": images.Bank,
+  "bicycle": images.Bicycle,
+  "coffee": images.Coffee,
+  "food": images.Food,
+  "gas_station": images.GasStation,
+  "history": images.History,
+  "industrial": images.Industrial,
+  "other": images.Other,
+  "religion": images.Religion,
+  "sleep": images.Sleep,
+  "sport": images.Sport,
+  "store": images.Store,
 };
 
 const Markers = ({ points }: Props) => {
@@ -56,7 +92,7 @@ const Markers = ({ points }: Props) => {
     });
   };
 
-  const handleMarkerClick = useCallback((key) => {
+  const handleMarkerClick = useCallback((key: string) => {
     setActiveMarker(key);
     setModalVisible(true);
   }, []);
@@ -75,11 +111,11 @@ const Markers = ({ points }: Props) => {
           ref={(marker) => setMarkerRef(marker, point.key)}
           onClick={() => handleMarkerClick(point.key)}
         >
-          <Button type="primary" shape="circle" icon={<img src={Nature} style={{ width: '1.5rem', height: '1.5rem' }} />} />
+          <Button  shape="circle" icon={<img src={iconMap[point.category]} style={{ width: '1.5rem', height: '1.5rem' }} />} />
         </AdvancedMarker>
       ))}
       <Modal
-        title={activePoint?.title ?? ''}
+        title={activePoint?.name ?? ''}
         visible={modalVisible}
         onCancel={handleModalCancel}
         footer={null}
