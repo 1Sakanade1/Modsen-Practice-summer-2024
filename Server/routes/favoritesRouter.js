@@ -4,6 +4,8 @@ const router = new Router();
 const favoritesController = require('../controllers/favoritesController');
 const AuthCheckMiddleware = require('../middleware/AuthCheckMiddleware')
 
-router.post('/', favoritesController.test);
+router.get('/getAllById',AuthCheckMiddleware, favoritesController.getFavorites)
+router.post('/addOneInFavorites',AuthCheckMiddleware,favoritesController.addToFavorites)
+router.post('/RemoveOneFromFavorites',AuthCheckMiddleware,favoritesController.removeFromFavorites)
 
 module.exports = router;

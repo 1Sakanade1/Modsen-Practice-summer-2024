@@ -16,6 +16,9 @@ import Religion from './religion.png';
 import Sleep from './sleep.png';
 import Sport from './sport.png';
 import Store from './store.png';
+import Vector from './Vector.png'
+import Favorites_Closed from './favorites_closed.png'
+import Favorites_Opened from './saved_opened.png'
 
 export {
   Nature,
@@ -36,4 +39,7 @@ export {
   Sleep,
   Sport,
   Store,
+  Vector,
+  Favorites_Closed,
+  Favorites_Opened
 };

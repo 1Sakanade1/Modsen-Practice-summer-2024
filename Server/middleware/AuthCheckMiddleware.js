@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
       return res.status(401).json({ message: 'пользователь не авторизован' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, "zxc");
     req.user = decoded;
     next();
   } catch (e) {

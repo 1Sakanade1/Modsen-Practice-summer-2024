@@ -8,12 +8,12 @@ import LoginModal from './LoginModal';
 const { Sider } = Layout;
 const { Option } = Select;
 
-const StyledSider = styled(Sider)`
-`;
+const StyledSider = styled(Sider)``;
 
 const SidePanel: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [loginModalVisible, setLoginModalVisible] = useState<boolean>(false);
+  const [searchModalVisible, setSearchModalVisible] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
   const [filterType, setFilterType] = useState<string>('');
 
@@ -35,7 +35,6 @@ const SidePanel: React.FC = () => {
       location: 'Местоположение'
     }
   ];
-
   const showDrawer = () => {
     setVisible(true);
   };
@@ -55,6 +54,14 @@ const SidePanel: React.FC = () => {
 
   const handleLoginModalCancel = () => {
     setLoginModalVisible(false);
+  };
+
+  const showSearchModal = () => {
+    setSearchModalVisible(true);
+  };
+
+  const handleSearchModalCancel = () => {
+    setSearchModalVisible(false);
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +84,7 @@ const SidePanel: React.FC = () => {
         <img src={''} style={{ width: '32px' }} />
       </div>
       <Menu mode="inline" style={{ border: 'none' }}>
-        <Menu.Item key="search" icon={<SearchOutlined />} />
+        <Menu.Item key="search" icon={<SearchOutlined />} onClick={showSearchModal} />
         <Menu.Item key="bookmarks" icon={<BookOutlined />} onClick={showDrawer} />
         <Menu.Item key="profile" icon={<UserOutlined />} onClick={showLoginModal} />
       </Menu>
@@ -128,6 +135,32 @@ const SidePanel: React.FC = () => {
         onLogin={handleLogin}
         onRegister={() => console.log('Register clicked')}
       />
+      <Drawer
+        title="Поиск"
+        placement="right"
+        onClose={handleSearchModalCancel}
+        visible={searchModalVisible}
+        width={320}
+      >
+        <Input.Group compact>
+          <Input
+            style={{ width: '70%' }}
+            placeholder="Поиск..."
+            value={searchText}
+            onChange={handleSearch}
+          />
+          <Select
+            style={{ width: '30%' }}
+            value={filterType}
+            onChange={handleFilterTypeChange}
+          >
+            <Option value="">Все</Option>
+            <Option value="Музей">Музеи</Option>
+            <Option value="Парк">Парки</Option>
+            <Option value="Культура">Культура</Option>
+          </Select>
+        </Input.Group>
+      </Drawer>
     </StyledSider>
   );
 };

@@ -2,8 +2,7 @@ const Router = require('express');
 const router = new Router();
 
 const attractionController = require('../controllers/attractionController');
-const AuthCheckMiddleware = require('../middleware/AuthCheckMiddleware');
 
-router.post('/', attractionController.test);
+router.get('/getAll',attractionController.getAllAttractions);
 
 module.exports = router;

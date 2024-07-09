@@ -1,0 +1,24 @@
+.marker-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px; /* Подберите ширину по желанию */
+    height: 500px; /* Подберите высоту по желанию */
+    
+  }
+  
+  .marker-container img {
+    position: absolute;
+    max-width: 100ex;
+    max-height: 100ex;
+    margin-top:500px ;
+  }
+  
+  .marker-container img:first-child {
+    z-index: 1;
+  }
+  
+  .marker-container img:last-child {
+    z-index: 2;
+  }

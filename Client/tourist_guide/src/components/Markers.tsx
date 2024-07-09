@@ -44,6 +44,7 @@ const iconMap: { [key: string]: string} = {
   "sleep": images.Sleep,
   "sport": images.Sport,
   "store": images.Store,
+  "user" : images.Vector
 };
 
 const Markers = ({ points }: Props) => {
