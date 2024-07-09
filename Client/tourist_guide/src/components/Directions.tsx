@@ -11,8 +11,10 @@ interface DirectionsProps {
 const Directions: React.FC<DirectionsProps> = ({ origin, destination }) => {
   const map = useMap();
   const routesLibrary = useMapsLibrary("routes");
-  const [directionsService, setDirectionsService] = useState<google.maps.DirectionsService>();
-  const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer>();
+  const [directionsService, setDirectionsService] =
+    useState<google.maps.DirectionsService>();
+  const [directionsRenderer, setDirectionsRenderer] =
+    useState<google.maps.DirectionsRenderer>();
   const [routes, setRoutes] = useState<google.maps.DirectionsRoute[]>([]);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const Directions: React.FC<DirectionsProps> = ({ origin, destination }) => {
     setDirectionsRenderer(
       new routesLibrary.DirectionsRenderer({
         map,
-        suppressMarkers: true, 
+        suppressMarkers: true,
       })
     );
   }, [routesLibrary, map]);
@@ -32,7 +34,10 @@ const Directions: React.FC<DirectionsProps> = ({ origin, destination }) => {
     directionsService
       .route({
         origin: new google.maps.LatLng(origin.latitude, origin.longitude),
-        destination: new google.maps.LatLng(destination.latitude, destination.longitude),
+        destination: new google.maps.LatLng(
+          destination.latitude,
+          destination.longitude
+        ),
         travelMode: google.maps.TravelMode.DRIVING,
         provideRouteAlternatives: true,
       })
