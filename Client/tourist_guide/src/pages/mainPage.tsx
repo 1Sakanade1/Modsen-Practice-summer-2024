@@ -1,7 +1,7 @@
-import MapComp from "../components/MapComp";
-import SidePanel from "../components/SidePanel";
+import GoogleMap from "../components/Map/GoogleMap";
+import SidePanel from "../components/SidePanel/SidePanel";
 import styled from "styled-components";
-import UserGeolocation from "../components/UserGeolocation";
+import UserGeolocation from "../components/UserGeolocation/UserGeolocation";
 
 const MainPageContainer = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const MainPage = () => {
         <SidePanel />
       </SidePanelContainer>
       <MapContainer>
-        <MapComp />
+        <GoogleMap />
       </MapContainer>
       <UserGeolocation></UserGeolocation>
     </MainPageContainer>

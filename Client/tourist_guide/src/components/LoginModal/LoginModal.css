@@ -1,0 +1,25 @@
+.footer-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .toggle-mode {
+    margin-right: auto;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .footer-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .form-container {
+    margin-top: 16px;
+  }
+  
+  .password-item {
+    margin-top: -20px;
+    padding-bottom: 10px;
+  }

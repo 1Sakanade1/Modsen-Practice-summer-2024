@@ -5,9 +5,12 @@ const fs = require('fs');
 const sequelize = require('./db');
 const router = require('./routes/index.js');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware.js');
+const cors = require('cors');
 require('./models/models'); //надо подключать чтобы синхронизировалась бд
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use('/api', router);

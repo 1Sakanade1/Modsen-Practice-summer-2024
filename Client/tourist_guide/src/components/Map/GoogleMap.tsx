@@ -1,12 +1,12 @@
 "use client";
 
 //import { Attraction } from "../temp/attractions";
-import attractions from "../temp/attractions";
-import Directions from "./Directions";
-import Markers from "./Markers";
-import UserLocationMarker from "./UserLocationMarker";
+import attractions from "../../temp/attractions";
+import Directions from "../Directions/Directions";
+import Markers from "../Markers/Markers";
+import UserLocationMarker from "../UserLocationMarker/UserLocationMarker";
 import { useState, useMemo } from "react";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 
 const points: any[] = attractions.map((attraction) => ({
@@ -17,7 +17,7 @@ const points: any[] = attractions.map((attraction) => ({
 
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
-const MapComp: React.FC = () => {
+const GoogleMap: React.FC = () => {
   const [isDirectionVisible, setIsDirectionVisible] = useState(true);
 
   const state = useSelector((state: RootState) => state.location);
@@ -28,7 +28,7 @@ const MapComp: React.FC = () => {
     }
     return { latitude: 0, longitude: 0, heading: 0 }; // добавить heading
   }, [state?.userLocation]);
-
+  //когда стили переношу в отдельный файл и пытаюсь подключить, то карта ломается
   return (
     <APIProvider apiKey={"AIzaSyDKi_KEnRUy_O-l9k7A0qiMJAN4FfAv20c"}>
       <div style={{ height: "100vh", width: "100%" }}>
@@ -54,6 +54,6 @@ const MapComp: React.FC = () => {
   );
 };
 
-export default MapComp;
+export default GoogleMap;
 
 //не знаю как пофиксить ошибку с points

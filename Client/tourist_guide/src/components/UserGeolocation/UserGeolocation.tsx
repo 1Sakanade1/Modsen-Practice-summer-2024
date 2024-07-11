@@ -1,11 +1,8 @@
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../store/store';
-import { RootState } from '../store/store';
-
-type PositionOptionsWithFrequency = Omit<PositionOptions, 'frequency'> & {
-  frequency?: number;
-};
+import React, { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { RootState } from "../../store/store";
+import { PositionOptionsWithFrequency } from "./UserGeolocationTypes";
 
 const UserGeolocation: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -26,10 +23,10 @@ const UserGeolocation: React.FC = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
-          dispatch({ type: 'SET_USER_LOCATION', payload: location });
+          dispatch({ type: "SET_USER_LOCATION", payload: location });
         },
         (error) => {
-          console.error('Error getting user location:', error);
+          console.error("Error getting user location:", error);
         },
         {
           enableHighAccuracy: true,
@@ -43,12 +40,14 @@ const UserGeolocation: React.FC = () => {
         navigator.geolocation.clearWatch(watchId);
       };
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error("Geolocation is not supported by this browser.");
     }
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(`User location from redux: ${userLocation.latitude},${userLocation.longitude}`);
+    console.log(
+      `User location from redux: ${userLocation.latitude},${userLocation.longitude}`
+    );
   }, [userLocation]);
 
   return null;

@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { Card, Tag, Divider, Row, Col, Button, Tooltip } from 'antd';
-import { ClockCircleOutlined, UserOutlined, EnvironmentOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Card, Tag, Divider, Row, Col, Button, Tooltip } from "antd";
+import {
+  ClockCircleOutlined,
+  UserOutlined,
+  EnvironmentOutlined,
+  UpOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
+import { FavoriteCardProps } from "./FavoriteCardProps";
+import {
+  cardStyles,
+  imageStyles,
+  descriptionContainerStyles,
+  descriptionContainerCollapsedStyles,
+} from "./FavoriteCardStyles";
 
 const { Meta } = Card;
-
-interface FavoriteCardProps {
-  title: string;
-  description: string;
-  tags: string[];
-  workingHours: string;
-  visitors: string;
-  location: string;
-}
 
 const FavoriteCard: React.FC<FavoriteCardProps> = ({
   title,
@@ -24,38 +28,39 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({
   const [descVisibility, setDescVisibility] = useState(false);
 
   const toggleDescVisibility = () => {
-    setDescVisibility(!descVisibility);
+    setDescVisibility((prevVisibility) => !prevVisibility);
   };
 
   return (
     <Card
       hoverable
-      style={{
-        width: 280,
-        borderRadius: 16,
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-      }}
+      style={cardStyles}
       cover={
         <img
           alt="museum"
           src="https://via.placeholder.com/300x240"
-          style={{
-            height: 240,
-            objectFit: 'cover',
-            borderTopLeftRadius: 16,
-            borderTopRightRadius: 16,
-          }}
+          style={imageStyles}
         />
       }
       actions={[
         <Tooltip title="Маршрут">
-          <Button type="primary" shape="circle" icon={<EnvironmentOutlined />} />
-        </Tooltip>
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<EnvironmentOutlined />}
+          />
+        </Tooltip>,
       ]}
     >
       <Meta
         title={
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             {title}
             <Button type="text" onClick={toggleDescVisibility}>
               {descVisibility ? <DownOutlined /> : <UpOutlined />}
@@ -65,16 +70,15 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({
         description={
           <div
             style={{
-              maxHeight: descVisibility ? '1000px' : '50px',
-              overflow: 'hidden',
-              transition: 'max-height 0.15s ease-out',
+              ...descriptionContainerStyles,
+              ...(descVisibility ? descriptionContainerCollapsedStyles : {}),
             }}
-          > 
+          >
             {description}
           </div>
         }
       />
-      <Divider style={{ margin: '12px 0' }} />
+      <Divider style={{ margin: "12px 0" }} />
       <Row gutter={16}>
         {tags.map((tag, index) => (
           <Col key={index}>
@@ -82,7 +86,7 @@ const FavoriteCard: React.FC<FavoriteCardProps> = ({
           </Col>
         ))}
       </Row>
-      <Divider style={{ margin: '12px 0' }} />
+      <Divider style={{ margin: "12px 0" }} />
       <Row gutter={16}>
         <Col>
           <ClockCircleOutlined style={{ marginRight: 8 }} />

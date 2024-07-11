@@ -2,11 +2,7 @@
 
 import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
-
-interface DirectionsProps {
-  origin: { latitude: number; longitude: number };
-  destination: { latitude: number; longitude: number };
-}
+import { DirectionsProps } from "./DirectionsProps";
 
 const Directions: React.FC<DirectionsProps> = ({ origin, destination }) => {
   const map = useMap();
