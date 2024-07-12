@@ -58,29 +58,31 @@ class FavoritesController {
     }
   }
 
-  async getFavorites(req, res) {
+  async getFavoriteAttractions(req, res) {
     try {
       const userId = req.user.id;
-
-      const favorites = await Favorite.findAll({
+  
+      const favoritedAttractions = await Favorite.findAll({
         where: {
-          UserId: userId,
+          userId: userId,
         },
-        include: [Attraction],
+        include: [
+          {
+            model: Attraction,
+            required: true,
+          },
+        ],
       });
-
-      const favoritesWithAttractions = favorites.map((favorite) => ({
-        id: favorite.id,
-        attractionId: favorite.AttractionId,
-        attraction: favorite.Attraction,
-      }));
-
-      return res.status(200).json(favoritesWithAttractions);
+  
+      const attractions = favoritedAttractions.map((favorite) => favorite.Attraction);
+      return res.json(attractions);
     } catch (error) {
-      console.error('Error in getFavorites:', error);
-      return res.status(500).json({ error: 'Internal server error' });
+      console.error('Ошибка при получении избранных достопримечательностей:', error);
+      return res.status(500).json({ error: 'Произошла ошибка при получении избранных достопримечательностей.' });
     }
   }
+  
+
 }
 
 module.exports =  new FavoritesController();

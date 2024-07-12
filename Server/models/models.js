@@ -53,7 +53,23 @@ const Attraction = sequelize.define('Attraction', {
     allowNull: false,
   },
   photos: {
-    type: DataTypes.TEXT,
+    type: DataTypes.JSON, 
+    allowNull: true,
+  },
+  tags: {
+    type: DataTypes.JSON, 
+    allowNull: true,
+  },
+  workingHours: {
+    type: DataTypes.STRING, 
+    allowNull: true,
+  },
+  visitors: {
+    type: DataTypes.STRING, 
+    allowNull: true,
+  },
+  location: {
+    type: DataTypes.STRING, 
     allowNull: true,
   },
 });

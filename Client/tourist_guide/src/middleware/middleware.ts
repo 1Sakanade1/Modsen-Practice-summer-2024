@@ -70,10 +70,9 @@ async function loginUser(userData: UserData): Promise<void> {
   }
 }
 
-async function getAllFavoritesByUserId(req: Request, res: Response, next: Function): Promise<any> {
+async function getAllFavoritesByUserId(jwt: string): Promise<any> {
   try {
-    const jwt = localStorage.getItem('jwt');
-    const response = await fetch('https://localhost:5000/api/favorites/allById', {
+    const response = await fetch('https://localhost:5000/api/favorites/getAllById', {
       headers: {
         'Authorization': `Bearer ${jwt}`
       }
@@ -82,20 +81,20 @@ async function getAllFavoritesByUserId(req: Request, res: Response, next: Functi
     if (response.ok) {
       return await response.json();
     } else {
-      console.error('Error getting orders:', response.status);
-      throw new Error(`Error getting orders: ${response.status}`);
+      console.error('Error getting favorites:', response.status);
+      throw new Error(`Error getting favorites: ${response.status}`);
     }
   } catch (err) {
     if (err instanceof Error) {
       console.error('Error executing request:', err.message);
-      next(err);
+      throw err;
     } else {
       console.error('Unknown error executing request:', err);
-      next(new Error('Unknown error executing request'));
+      throw new Error('Unknown error executing request');
     }
-    throw err; 
   }
 }
+
 
 function hasJWT(): boolean {
   try {
